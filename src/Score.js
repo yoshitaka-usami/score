@@ -1,7 +1,13 @@
 import React,{Component} from 'react';
+import './Score.css'
+
+
 
 const number =["0","15","30","40","","Adv.","40","Adv.","0","1","2","3","4","5","6","7","","Deuce","Adv."]
 const number2 =["0","1","2","3","4","5","5","6","7"]
+const number3 =[]
+
+
 
 
 
@@ -67,6 +73,7 @@ class Counter extends Component{
             this.setState({ game1: 0 });
             next = 0
             this.setState({ count1: 0})
+            number3.push (this.state.game,this.state.game1-1)
         }
         //タイブレーク 6-6以降　デュース
         if (next == 15 && next1 == 15) {
@@ -79,6 +86,7 @@ class Counter extends Component{
             this.setState({ game1: 0 });
             next = 0
             this.setState({ count1: 0})
+            number3.push (this.state.game,this.state.game1-1)
         }
         //6-6でタイブレーク
         if (nextGame1 == 8 && nextGame == 6 && next == 4){
@@ -94,12 +102,14 @@ class Counter extends Component{
             this.setState({ game1: 0 });
             next = 0;
             this.setState({ count1: 0});
+            number3.push (this.state.game,this.state.game1-1)
         }
         //7-5で1セット追加でスコアリセット
         if (nextGame == 8 && nextGame1 == 6 && next == 4){
             this.setState({ set: nextSet });
             this.setState({ game1: 0 });
             nextGame = 0;
+            number3.push (this.state.game,this.state.game1)
         }
         //セット終わりに相手のスコアをリセット
         if (nextGame == 6 && next == 4) {
@@ -113,10 +123,11 @@ class Counter extends Component{
         if (next == 4) {
             this.setState({ game: nextGame })
         }
-        //6ゲームで1セット　セット終わりにゲームカウントとポイントリセット       
+        //6ゲームで1セット　セット終わりにゲームカウントとポイントリセット  ゲームカウント表示   
         if (nextGame == 6 && next == 4 ) {
             this.setState({ game: 0 });
             this.setState({ set: nextSet });
+            number3.push (this.state.game+1,this.state.game1)
         }
         
         //4点でポイントリセット        
@@ -181,6 +192,7 @@ class Counter extends Component{
             this.setState({ game1: 0 });
             next1 = 0
             this.setState({ count: 0})
+            number3.push (this.state.game-1,this.state.game1)
         }
         //タイブレーク 6-6以降　デュース
         if (next == 15 && next1 == 15) {
@@ -193,6 +205,7 @@ class Counter extends Component{
             this.setState({ game1: 0 });
             next1 = 0
             this.setState({ count: 0})
+            number3.push (this.state.game-1,this.state.game1)
         }
         //6-6でタイブレーク
         if (nextGame == 8 && nextGame1 == 6 && next1 == 4){
@@ -208,12 +221,14 @@ class Counter extends Component{
             this.setState({ game1: 0 });
             next1 = 0
             this.setState({ count: 0})
+            number3.push (this.state.game-1,this.state.game1)
         }
         //7-5で1セット追加でスコアリセット
         if (nextGame1 == 8 && nextGame == 6 && next1 == 4){
             this.setState({ set1: nextSet1 });
             this.setState({ game: 0 });
             nextGame1 = 0;
+            number3.push (this.state.game,this.state.game1)
         }
         //セット終わりに相手のスコアをリセット
         if (nextGame1 == 6 && next1 == 4) {
@@ -232,6 +247,7 @@ class Counter extends Component{
         if (nextGame1 == 6 && next1 == 4 ) {
             this.setState({ game1: 0 });
             this.setState({ set1: nextSet1 });
+            number3.push (this.state.game,this.state.game1+1)
         }
         
         //4点でポイントリセット
@@ -240,18 +256,45 @@ class Counter extends Component{
         }
         this.setState({ count1: next1 })
     };
+    reset = () =>{
+      this.setState({ count: 0})
+      this.setState({ count1: 0})
+      this.setState({ set: 0})
+      this.setState({ set1: 0})
+      this.setState({ game: 0})
+      this.setState({ game1: 0})
+      number3.splice(0,100)
+    }
     
  render(){
         return (
             <div>
-                <p>Set: {this.state.set}</p>
-                <p>Game: {number2[this.state.game]}</p>
-                <p>Count: {number[this.state.count]}</p>
-                <button onClick={this.incrementPlayer}>scored</button>
-                <p>Set: {this.state.set1}</p>
-                <p>Game: {number2[this.state.game1]}</p>
-                <p>Count: {number[this.state.count1]}</p>
-                <button onClick={this.incrementPlayer1}>scored</button>
+                
+                
+                <table>
+                 <tr>
+                  <th>Player</th>
+                  <th>Set</th>
+                  <th>Game</th>
+                  <th>Point</th>
+                 </tr>
+                <tr>
+                 <td >1</td>
+                 <td>{this.state.set}</td>
+                 <td>{number3[0]} {number3[2]} {number3[4]} {number3[6]} {number3[8]} {number2[this.state.game]}</td>
+                 <td>{number[this.state.count]}</td>
+                 <td><button href="#" class="btn-stitch" onClick={this.incrementPlayer} >scored</button></td>
+                </tr>
+                <tr>
+                 <td >2</td>
+                 <td>{this.state.set1}</td>
+                 <td>{number3[1]} {number3[3]} {number3[5]} {number3[7]} {number3[9]} {number2[this.state.game1]}</td>
+                 <td>{number[this.state.count1]}</td>
+                 <td><button href="#" class="btn-stitch" onClick={this.incrementPlayer1}>scored</button></td>
+                </tr>
+               </table>
+               <button href="#" class="btn-flat-double-border" onClick={this.reset}>Reset</button>
+               
             </div>
         )
     }
