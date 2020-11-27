@@ -88,3 +88,64 @@ table th,table td{
   font-family: "serif"; 
 
 }
+
+.center {
+  text-align: center;
+}
+
+.btn-circle-stitch {
+  font-size: 1.5em;
+  display: inline-block;
+  text-decoration: none;
+  background: #e9f729;
+  color: rgb(253, 253, 253);
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 50%;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0px 0px 0px 5px #e9f729;
+  border: dashed 1px rgb(123, 252, 36);
+  transition: .4s;
+}
+
+.btn-circle-stitch:hover {
+  background: #58f332;
+  box-shadow: 0px 0px 0px 5px #58f332;
+}
+.em {
+  color: #3e3f3e;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.button_wrapper{
+  text-align:center;
+}
+
+.btn-border-bottom {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0.25em 0;
+  text-decoration: none;
+  color: #67c5ff;  
+}
+
+.btn-border-bottom:before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 4px;
+  top:100%;
+  left: 0;
+  border-radius: 3px;
+  background:#67c5ff;
+  transition: .2s;
+}
+
+.btn-border-bottom:hover:before {
+  top: -webkit-calc(100% - 3px);
+  top: calc(100% - 3px);
+}
